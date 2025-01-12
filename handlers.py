@@ -115,11 +115,12 @@ def check_date(user_id):
 @router.message(Command("log_water"))
 async def log_water(message: Message):
     user_id = message.from_user.id
-    check_date(user_id)
 
     if user_id not in users:
         await message.reply("Сначала настройте свой профиль с помощью /set_profile")
         return
+
+    check_date(user_id)
 
     try:
         amount_of_water = float(message.text.split()[1])
@@ -152,11 +153,12 @@ def get_food_info(product_name):
 @router.message(Command("log_food"))
 async def log_food(message: Message, state: FSMContext):
     user_id = message.from_user.id
-    check_date(user_id)
 
     if user_id not in users:
         await message.reply("Сначала настройте профиль с помощью команды /set_profile")
         return
+
+    check_date(user_id)
 
     try:
         type_of_food = message.text.split()[1]
@@ -191,10 +193,12 @@ async def process_food(message: Message, state: FSMContext):
 @router.message(Command("log_workout"))
 async def log_workout(message: Message):
     user_id = message.from_user.id
-    check_date(user_id)
+
     if user_id not in users:
         await message.reply("Сначала настройте профиль с помощью команды /set_profile")
         return
+
+    check_date(user_id)
 
     try:
         workout_info = message.text.split()
@@ -211,10 +215,12 @@ async def log_workout(message: Message):
 @router.message(Command("check_progress"))
 async def check_progress(message: Message):
     user_id = message.from_user.id
-    check_date(user_id)
+
     if user_id not in users:
         await message.answer("Сначала настройте профиль с командой /set_profile.")
         return
+
+    check_date(user_id)
 
     user = users[user_id]
     remaining_water = user['water_goal'] - user['logged_water']
